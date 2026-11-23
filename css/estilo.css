@@ -1,0 +1,6 @@
+body { background: #f4f6f9; }
+.card { border: none; box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+.card-resumo { transition: transform .15s, box-shadow .15s; }
+.card-resumo:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, .12); }
+.table { box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+footer { font-size: .9rem; }
