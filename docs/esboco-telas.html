@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Esboço das telas - Gerenciador Logístico</title>
+<style>
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #222; max-width: 900px; margin: 0 auto; padding: 24px; line-height: 1.5; }
+  .capa { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; text-align: center; break-after: page; }
+  .capa h1 { font-size: 32px; margin: 30px 0 6px; color: #0d6efd; }
+  .capa p { margin: 4px 0; font-size: 16px; }
+  h2 { border-bottom: 2px solid #0d6efd; padding-bottom: 4px; color: #0d6efd; }
+  .tela { break-inside: avoid; margin-bottom: 30px; }
+  .janela { border: 2px solid #555; border-radius: 6px; overflow: hidden; }
+  .menu { background: #0d6efd; color: #fff; padding: 8px 12px; font-size: 13px; }
+  .menu b { margin-right: 16px; }
+  .menu span { margin-right: 12px; }
+  .conteudo { padding: 14px; background: #f4f6f9; }
+  .titulo { font-weight: bold; font-size: 16px; margin-bottom: 8px; }
+  .caixa { background: #fff; border: 1px dashed #999; padding: 10px; margin-bottom: 10px; font-size: 13px; }
+  .linha { display: flex; gap: 8px; margin: 6px 0; }
+  .campo { flex: 1; border: 1px solid #aaa; background: #fff; padding: 6px; font-size: 12px; color: #666; }
+  .campo.g { flex: 3; }
+  .botao { display: inline-block; background: #0d6efd; color: #fff; padding: 5px 12px; font-size: 12px; border-radius: 3px; margin: 4px 6px 0 0; }
+  .botao.claro { background: #fff; color: #0d6efd; border: 1px solid #0d6efd; }
+  .botao.verde { background: #198754; }
+  table { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+  th { background: #cfe2ff; text-align: left; }
+  th, td { border: 1px solid #bbb; padding: 5px; }
+  .cards { display: flex; gap: 8px; margin-bottom: 10px; }
+  .cards div { flex: 1; background: #fff; border: 1px solid #aaa; text-align: center; padding: 10px; font-size: 12px; }
+  .cards b { display: block; font-size: 22px; color: #0d6efd; }
+  .nota { font-size: 13px; color: #444; margin-top: 6px; }
+  .quebra { break-before: page; }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <p><strong>UNIPAR EAD</strong> - Polo de Francisco Beltrão</p>
+  <p>Curso de Análise e Desenvolvimento de Sistemas</p>
+  <p>Disciplina: Fundamentos de Programação para Internet</p>
+  <h1>Gerenciador Logístico</h1>
+  <p>APO - Etapa 1: Análise do problema e esboço das telas</p>
+  <p style="margin-top:40px">Carlos Henrique Badia Lazarin - RA 09066221</p>
+  <p>2026</p>
+</div>
+
+<h2>1. Análise do problema</h2>
+<p>Uma empresa que faz entregas precisa organizar seus fretes. Hoje os dados de produtos, locais de coleta e entrega e motoristas ficam espalhados, o que dificulta saber o que cada transportador levou, quanto pesou a carga e qual o valor transportado em cada dia.</p>
+<p>A solução proposta é um sistema web em PHP, chamado Gerenciador Logístico, em que o usuário cadastra os dados básicos e gera fretes. Cada frete liga um transportador, um endereço de origem, um endereço de destino e vários produtos. O sistema calcula sozinho o peso e o valor total do frete e permite baixar um relatório dos fretes de um dia.</p>
+<p><strong>Requisitos funcionais:</strong></p>
+<ul>
+  <li>Cadastrar, editar, listar e excluir produtos (nome, peso e valor).</li>
+  <li>Cadastrar, editar, listar e excluir endereços, do tipo origem ou destino.</li>
+  <li>Cadastrar, editar, listar e excluir transportadores (nome, documento, telefone e veículo).</li>
+  <li>Gerar fretes com um transportador, uma origem, um destino e vários produtos, com cálculo do peso e do valor total.</li>
+  <li>Filtrar os fretes por dia e baixar o relatório em arquivo.</li>
+</ul>
+<p><strong>Tecnologias:</strong> PHP no servidor (XAMPP), HTML, CSS, Bootstrap para o layout e JavaScript para adicionar linhas de produto no frete. Os dados ficam em arquivos JSON.</p>
+<p><strong>Navegação:</strong> todas as telas têm o mesmo menu no topo (Início, Produtos, Endereços, Transportadores, Fretes e Relatório). As telas de cadastro seguem o mesmo padrão: formulário em cima e lista embaixo.</p>
+
+<h2 class="quebra">2. Esboço das telas</h2>
+
+<div class="tela">
+  <h3>Tela 1 - Início</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Resumo dos cadastros</div>
+      <div class="cards"><div><b>0</b>Produtos</div><div><b>0</b>Endereços</div><div><b>0</b>Transportadores</div><div><b>0</b>Fretes</div></div>
+      <div class="titulo">Últimos fretes</div>
+      <table><tr><th>#</th><th>Data</th><th>Transportador</th><th>Origem → Destino</th><th>Peso</th><th>Valor</th></tr>
+        <tr><td>1</td><td>dd/mm/aaaa</td><td>Nome</td><td>Local A → Local B</td><td>0,00 kg</td><td>R$ 0,00</td></tr></table>
+    </div></div>
+  <p class="nota">Mostra quantos cadastros existem e os últimos fretes. Cada quadro leva para a sua tela.</p>
+</div>
+
+<div class="tela">
+  <h3>Tela 2 - Produtos</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Produtos</div>
+      <div class="caixa">Novo produto
+        <div class="linha"><div class="campo g">Nome</div><div class="campo">Peso (kg)</div><div class="campo">Valor (R$)</div></div>
+        <span class="botao">Salvar</span></div>
+      <table><tr><th>#</th><th>Nome</th><th>Peso</th><th>Valor</th><th>Ações</th></tr>
+        <tr><td>1</td><td>Produto exemplo</td><td>0,00 kg</td><td>R$ 0,00</td><td><span class="botao claro">Editar</span><span class="botao claro">Excluir</span></td></tr></table>
+    </div></div>
+  <p class="nota">Ao clicar em Editar, os dados voltam para o formulário.</p>
+</div>
+
+<div class="tela quebra">
+  <h3>Tela 3 - Endereços</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Endereços</div>
+      <div class="caixa">Novo endereço
+        <div class="linha"><div class="campo">Tipo: Origem / Destino</div><div class="campo g">Nome do local</div></div>
+        <div class="linha"><div class="campo g">Logradouro e número</div><div class="campo">Cidade</div><div class="campo">UF</div><div class="campo">CEP</div></div>
+        <span class="botao">Salvar</span></div>
+      <table><tr><th>#</th><th>Tipo</th><th>Nome</th><th>Logradouro</th><th>Cidade/UF</th><th>Ações</th></tr>
+        <tr><td>1</td><td>Origem</td><td>Depósito</td><td>Rua, número</td><td>Cidade/UF</td><td><span class="botao claro">Editar</span><span class="botao claro">Excluir</span></td></tr></table>
+    </div></div>
+</div>
+
+<div class="tela">
+  <h3>Tela 4 - Transportadores</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Transportadores</div>
+      <div class="caixa">Novo transportador
+        <div class="linha"><div class="campo g">Nome</div><div class="campo">CPF ou CNPJ</div><div class="campo">Telefone</div></div>
+        <div class="linha"><div class="campo g">Veículo (modelo e placa)</div></div>
+        <span class="botao">Salvar</span></div>
+      <table><tr><th>#</th><th>Nome</th><th>CPF/CNPJ</th><th>Telefone</th><th>Veículo</th><th>Ações</th></tr>
+        <tr><td>1</td><td>Nome</td><td>000.000.000-00</td><td>(00) 00000-0000</td><td>Modelo - placa</td><td><span class="botao claro">Editar</span><span class="botao claro">Excluir</span></td></tr></table>
+    </div></div>
+</div>
+
+<div class="tela quebra">
+  <h3>Tela 5 - Fretes</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Fretes</div>
+      <div class="caixa">Novo frete
+        <div class="linha"><div class="campo">Data</div><div class="campo">Transportador ▼</div><div class="campo">Origem ▼</div><div class="campo">Destino ▼</div></div>
+        Produtos do frete
+        <div class="linha"><div class="campo g">Produto ▼</div><div class="campo">Quantidade</div><span class="botao claro">Remover</span></div>
+        <div class="linha"><div class="campo g">Produto ▼</div><div class="campo">Quantidade</div><span class="botao claro">Remover</span></div>
+        <span class="botao claro">+ Adicionar produto</span><br><span class="botao">Gerar frete</span></div>
+      <div class="caixa"><strong>Frete #1</strong> · dd/mm/aaaa · Transportador<br>Origem → Destino<br>2x Produto A · 1x Produto B<br><strong>Peso total</strong> e <strong>Valor total</strong></div>
+    </div></div>
+  <p class="nota">O botão "+ Adicionar produto" cria uma nova linha com JavaScript, então um transportador leva vários produtos. O PHP calcula o peso e o valor total.</p>
+</div>
+
+<div class="tela">
+  <h3>Tela 6 - Relatório</h3>
+  <div class="janela"><div class="menu"></div>
+    <div class="conteudo">
+      <div class="titulo">Relatório de fretes por dia</div>
+      <div class="caixa"><div class="linha"><div class="campo">Dia: dd/mm/aaaa</div><span class="botao">Buscar</span><span class="botao verde">Baixar relatório</span></div></div>
+      <table><tr><th>#</th><th>Transportador</th><th>Origem</th><th>Destino</th><th>Produtos</th><th>Peso</th><th>Valor</th></tr>
+        <tr><td>1</td><td>Nome</td><td>Local A</td><td>Local B</td><td>2x Produto A</td><td>0,00 kg</td><td>R$ 0,00</td></tr>
+        <tr><th colspan="5">Total do dia</th><th>0,00 kg</th><th>R$ 0,00</th></tr></table>
+    </div></div>
+  <p class="nota">O usuário escolhe o dia, vê os fretes e baixa o arquivo (CSV, abre no Excel).</p>
+</div>
+
+<script>
+  document.querySelectorAll('.menu').forEach(function (m) {
+    m.innerHTML = '<b>Gerenciador Logístico</b><span>Início</span><span>Produtos</span><span>Endereços</span><span>Transportadores</span><span>Fretes</span><span>Relatório</span>';
+  });
+</script>
+</body>
+</html>
